@@ -1,0 +1,22 @@
+<div class="list-table">
+  <ul class="list-header list-item">
+    <li class="col-id">id</li>
+    <li class="col-company">企业</li>
+    <li class="col-user">联系人</li>
+    <li class="col-contact">邮箱</li>
+    <li class="col-contact">手机</li>
+    <li class="col-time">反馈时间</li>
+    <li class="">反馈内容</li>
+  </ul>
+  <div class="list-body">
+    <ul class="list-item" ng-repeat="feed in list">
+      <li class="col-id">{{feed.feedId}}</li>
+      <li class="col-company">{{feed.company}}</li>
+      <li class="col-user">{{feed.contact}}</li>
+      <li class="col-contact">{{feed.mail}}</li>
+      <li class="col-contact">{{feed.mobile}}</li>
+      <li class="col-time">{{feed.feedTime}}</li>
+      <li class="">{{feed.content}}</li>
+    </ul>
+  </div>
+</div>

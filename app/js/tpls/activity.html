@@ -1,0 +1,23 @@
+<div class="list-table">
+  <ul class="list-header list-item">
+    <li class="col-company">激活码</li>
+    <li class="col-time">到期日期</li>
+    <li class="col-status">用户数</li>
+    <li class="col-status">空间</li>
+    <li class="col-status">vip</li>
+    <li class="col-status">状态</li>
+  </ul>
+  <div class="list-body">
+    <ul class="list-item" ng-repeat="activity in list">
+      <li class="col-company">{{activity.activityCode}}</li>
+      <li class="col-time">
+        {{activity | activityExpiry}}
+        <span class="btn" ng-click="openDatepicker(lic)"><i class="fa fa-edit"></i></span>
+      </li>
+      <li class="col-status">{{activity.maxUser}}</li>
+      <li class="col-status"><span ng-if="activity.maxSpace">{{activity.maxSpace}}T</span></li>
+      <li class="col-status">{{activity.vip}}</li>
+      <li class="col-status">{{activity | activityUsed}}</li>
+    </ul>
+  </div>
+</div>
