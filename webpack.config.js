@@ -23,7 +23,8 @@ module.exports = {
                 loader: 'ng-annotate!babel',
                 //query: {
                 //    presets: ['es2015']
-                //}
+                //},
+                exclude: /node_modules/
             },
             //{
             //    test: /\.less/,
