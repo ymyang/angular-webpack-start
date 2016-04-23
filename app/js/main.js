@@ -19,8 +19,6 @@ import 'angular-ui-bootstrap';
 import ApplyStatus from './filters/ApplyStatus';
 import ActivityExpiry from './filters/ActivityExpiry';
 import ActivityUsed from './filters/ActivityUsed';
-import ActiveCtrl from './controllers/ActiveCtrl';
-import ApplyCtrl from './controllers/ApplyCtrl';
 import ActivityCtrl from './controllers/ActivityCtrl';
 import FeedCtrl from './controllers/FeedCtrl';
 import DatepickerCtrl from './controllers/DatepickerCtrl';
@@ -31,8 +29,6 @@ app.filter('applyStatus', ApplyStatus);
 app.filter('activityExpiry', ActivityExpiry);
 app.filter('activityUsed', ActivityUsed);
 
-app.controller('ActiveCtrl', ActiveCtrl);
-app.controller('ApplyCtrl', ApplyCtrl);
 app.controller('ActivityCtrl', ActivityCtrl);
 app.controller('FeedCtrl', FeedCtrl);
 app.controller('DatepickerCtrl', DatepickerCtrl);
@@ -42,15 +38,7 @@ app.config(($locationProvider, $stateProvider) => {
     $locationProvider.html5Mode(false);
     $locationProvider.hashPrefix("!");
 
-    $stateProvider.state('apply', {
-        url: 'apply',
-        template: require('./tpls/apply.html'),
-        controller: 'ApplyCtrl'
-    }).state('active', {
-        url: 'active',
-        template: require('./tpls/active.html'),
-        controller: 'ActiveCtrl'
-    }).state('activity', {
+    $stateProvider.state('activity', {
         url: 'activity',
         template: require('./tpls/activity.html'),
         controller: 'ActivityCtrl'
@@ -65,7 +53,7 @@ app.config(($locationProvider, $stateProvider) => {
 });
 
 app.run(($state, $log) => {
-    $state.go('apply');
+    $state.go('activity');
     $log.debug('app.run ok');
 });
 
