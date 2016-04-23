@@ -4,13 +4,14 @@
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 
 module.exports = {
     entry: {
         app: './app/js/main.js'
     },
     output: {
-        path: '../_/',
+        path: './build',
         filename: '[name]_[chunkhash].js'
     },
     //resolve: {
@@ -20,12 +21,17 @@ module.exports = {
         loaders: [
             {
                 test: /\.js$/,
-                loader: 'ng-annotate!babel',
+                loader: 'ng-annotate!babel?presets[]=es2015',
                 //query: {
                 //    presets: ['es2015']
                 //},
                 exclude: /node_modules/
             },
+            //{
+            //    test: /\.js$/,
+            //    loader: 'ng-annotate',
+            //    exclude: /node_modules/
+            //},
             //{
             //    test: /\.less/,
             //    loader: 'style!css!less'
@@ -58,10 +64,14 @@ module.exports = {
             inject: 'body'
         }),
         new ExtractTextPlugin('[name]_[hash].css'),
-        new webpack.optimize.UglifyJsPlugin(),
-        //new CopyWebpackPlugin([{
-        //    from: './app/css/fonts',
-        //    to: 'fonts'
-        //}])
+        //new ngAnnotatePlugin({
+        //    add: true
+        //}),
+        new webpack.optimize.UglifyJsPlugin()
+        //new webpack.optimize.UglifyJsPlugin({
+        //    mangle: {
+        //        except: ['$scope','$resource','$filter','$log','$uibModalInstance','$uibModal']
+        //    }
+        //})
     ]
 };

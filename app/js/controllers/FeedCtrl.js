@@ -1,21 +1,27 @@
 /**
  * Created by yang on 2016/3/24.
  */
-angular.module('app').controller('FeedCtrl', function($scope, $resource, $log) {
 
-    $scope.list = [];
+export default class FeedCtrl {
 
-    _getList();
+    constructor($scope, $resource, $log) {
+        'ngInject';
 
-    function _getList() {
-        $scope.list = [
-            {
-                feedId: 123,
-                company: '测试',
-                feedTime: new Date(),
-                content: '测试测试'
-            }
-        ];
+        this.$scope = $scope;
+
+        this.Feed = $resource('/site/feed', undefined, {
+            save: {method: 'PUT'}
+        });
+        this.FeedList = $resource('/site/feed/list');
+
+        this.$scope.list = [];
+
+        this._getList();
     }
 
-});
+    _getList() {
+        this.FeedList.get((body) => {
+            this.$scope.list = body.data.list;
+        });
+    }
+}

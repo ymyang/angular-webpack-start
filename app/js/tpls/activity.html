@@ -12,7 +12,7 @@
       <li class="col-company">{{activity.activityCode}}</li>
       <li class="col-time">
         {{activity | activityExpiry}}
-        <span class="btn" ng-click="openDatepicker(lic)"><i class="fa fa-edit"></i></span>
+        <span class="btn" ng-click="openDatepicker(activity)"><i class="fa fa-edit"></i></span>
       </li>
       <li class="col-status">{{activity.maxUser}}</li>
       <li class="col-status"><span ng-if="activity.maxSpace">{{activity.maxSpace}}T</span></li>

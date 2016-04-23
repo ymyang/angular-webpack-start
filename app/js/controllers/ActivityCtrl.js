@@ -1,43 +1,56 @@
 /**
  * Created by yang on 2016/3/24.
  */
-angular.module('app').controller('ActivityCtrl', function($scope, $filter, $resource, $uibModal, $log) {
 
-    $scope.list = [];
+export default class ActivityCtrl {
 
-    _getList();
+    constructor($scope, $filter, $resource, $uibModal, $log) {
+        'ngInject';
 
-    function _getList() {
-        $scope.list = [
-            {
-                activityCode: 'asdef',
-                expiryDate: '2016-05-06'
-            }
-        ];
+        this.$scope = $scope;
+
+        this.Activity = $resource('/site/activity', undefined, {
+            save: {method: 'PUT'}
+        });
+        this.ActivityList = $resource('/site/activity/list');
+
+        this.$scope.list = [];
+
+        this._getList();
+
+        this.$scope.openDatepicker = (activity) => {
+            $uibModal.open({
+                template: require('../tpls/datepicker.html'),
+                animation: true,
+                keyboard: true,
+                backdrop: true,
+                controller: 'DatepickerCtrl',
+                resolve: {
+                    model: () => activity
+                },
+                size: 'sm'
+            }).closed.then(() => {
+                    $log.debug('ActivityCtrl expiryDate:', activity.expiryDate);
+                    activity.expiryDate = $filter('date')(activity.expiryDate, 'yyyy-MM-dd');
+                    this._updateExpireDate(activity);
+                });
+        }
+
     }
 
-    function _updateExpireDate(activity) {
-        // TODO
+    _getList() {
+        this.ActivityList.get((body) => {
+            this.$scope.list = body.data.list;
+        });
     }
 
-    $scope.openDatepicker = function(activity) {
-        $uibModal.open({
-            template: require('../tpls/datepicker.html'),
-            animation: true,
-            keyboard: true,
-            backdrop: true,
-            controller: 'DatepickerCtrl',
-            resolve: {
-                model: function() {
-                    return activity
-                }
-            },
-            size: 'sm'
-        }).closed.then(function() {
-                $log.debug('ActiveCtrl expiryDate:', activity.expiryDate);
-                lic.expiryDate = $filter('date')(activity.expiryDate, 'yyyy-MM-dd');
-                _updateExpireDate(activity);
-            });
+    _updateExpireDate(activity) {
+        this.Activity.save({
+            activityCode: activity.activityCode,
+            expiryDate: activity.expiryDate,
+            vip: activity.vip
+        }, () => {
+            //_getList();
+        });
     }
-
-});
+}

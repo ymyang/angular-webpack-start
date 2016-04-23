@@ -2,35 +2,55 @@
  * Created by yang on 2016/3/24.
  */
 
-require('../css/bootstrap.css');
-require('../css/font-awesome.css');
-require('../css/global.less');
+import '../css/bootstrap.css';
+import '../css/font-awesome.css';
+import '../css/global.less';
 
-var $ = require("jquery");
+import $ from 'jquery';
 window.$ = window.jQuery = $;
 
-require('angular');
-//require('angular-route');
-require('angular-resource');
+import angular from 'angular';
+//import 'angular-route';
+import 'angular-resource';
 
-require('angular-ui-router');
-require('angular-ui-bootstrap');
+import 'angular-ui-router';
+import 'angular-ui-bootstrap';
 
-var app = angular.module('app', ['ui.router','ngResource', 'ui.bootstrap']);
+import ApplyStatus from './filters/ApplyStatus';
+import ActivityExpiry from './filters/ActivityExpiry';
+import ActivityUsed from './filters/ActivityUsed';
+import ActiveCtrl from './controllers/ActiveCtrl';
+import ApplyCtrl from './controllers/ApplyCtrl';
+import ActivityCtrl from './controllers/ActivityCtrl';
+import FeedCtrl from './controllers/FeedCtrl';
+import DatepickerCtrl from './controllers/DatepickerCtrl';
 
-require('./filters/ApplyStatus.js');
-require('./filters/ActivityExpiry.js');
-require('./filters/ActivityUsed.js');
-require('./controllers/ActivityCtrl.js');
-require('./controllers/FeedCtrl.js');
-require('./controllers/DatepickerCtrl.js');
+let app = angular.module('app', ['ui.router','ngResource', 'ui.bootstrap']);
+
+app.filter('applyStatus', ApplyStatus);
+app.filter('activityExpiry', ActivityExpiry);
+app.filter('activityUsed', ActivityUsed);
+
+app.controller('ActiveCtrl', ActiveCtrl);
+app.controller('ApplyCtrl', ApplyCtrl);
+app.controller('ActivityCtrl', ActivityCtrl);
+app.controller('FeedCtrl', FeedCtrl);
+app.controller('DatepickerCtrl', DatepickerCtrl);
 
 
-app.config(function($locationProvider, $stateProvider) {
+app.config(($locationProvider, $stateProvider) => {
     $locationProvider.html5Mode(false);
     $locationProvider.hashPrefix("!");
 
-    $stateProvider.state('activity', {
+    $stateProvider.state('apply', {
+        url: 'apply',
+        template: require('./tpls/apply.html'),
+        controller: 'ApplyCtrl'
+    }).state('active', {
+        url: 'active',
+        template: require('./tpls/active.html'),
+        controller: 'ActiveCtrl'
+    }).state('activity', {
         url: 'activity',
         template: require('./tpls/activity.html'),
         controller: 'ActivityCtrl'
@@ -44,8 +64,8 @@ app.config(function($locationProvider, $stateProvider) {
 
 });
 
-app.run(function($state, $log) {
-    $state.go('activity');
+app.run(($state, $log) => {
+    $state.go('apply');
     $log.debug('app.run ok');
 });
 

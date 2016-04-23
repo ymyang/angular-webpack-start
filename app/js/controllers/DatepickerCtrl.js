@@ -1,48 +1,54 @@
 /**
  * Created by yang on 2016/3/25.
  */
-angular.module('app').controller('DatepickerCtrl', function($scope, $uibModalInstance, model) {
 
-    $scope.model = model;
+export default class DatepickerCtrl {
 
-    $scope.inlineOptions = {
-        formatMonth: 'MM',
-        customClass: _getDayClass,
-        minDate: new Date(),
-        showWeeks: false
-    };
+    constructor($scope, $uibModalInstance, model) {
+        'ngInject';
 
-    var tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    var afterTomorrow = new Date();
-    afterTomorrow.setDate(tomorrow.getDate() + 1);
-    $scope.events = [
-        {
-            date: tomorrow,
-            status: 'full'
-        },
-        {
-            date: afterTomorrow,
-            status: 'partially'
-        }
-    ];
+        this.$scope = $scope;
 
-    function _getDayClass(data) {
-        var date = data.date;
-        var mode = data.mode;
-        if (mode === 'day') {
-            var dayToCheck = new Date(date).setHours(0,0,0,0);
+        this.$scope.model = model;
 
-            for (var i = 0; i < $scope.events.length; i++) {
-                var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
-
-                if (dayToCheck === currentDay) {
-                    return $scope.events[i].status;
-                }
+        let tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        let afterTomorrow = new Date();
+        afterTomorrow.setDate(tomorrow.getDate() + 1);
+        this.$scope.events = [
+            {
+                date: tomorrow,
+                status: 'full'
+            },
+            {
+                date: afterTomorrow,
+                status: 'partially'
             }
-        }
+        ];
 
-        return '';
+        this.$scope.inlineOptions = {
+            formatMonth: 'MM',
+            customClass: (data) => {
+                let date = data.date;
+                let mode = data.mode;
+                if (mode === 'day') {
+                    let dayToCheck = new Date(date).setHours(0,0,0,0);
+
+                    for (let i = 0; i < this.$scope.events.length; i++) {
+                        let currentDay = new Date(this.$scope.events[i].date).setHours(0,0,0,0);
+
+                        if (dayToCheck === currentDay) {
+                            return this.$scope.events[i].status;
+                        }
+                    }
+                }
+
+                return '';
+            },
+            minDate: new Date(),
+            showWeeks: false
+        };
+
     }
 
-});
+}
