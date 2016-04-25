@@ -8,7 +8,8 @@ var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: './app/js/main.js'
+        app: './app/js/main.js',
+        about: './app/js/about.js'
     },
     output: {
         path: './build',
@@ -59,9 +60,23 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'commons',
+            //chunks: ['index', 'about'],
+            minChunks: 2
+        }),
         new HtmlWebpackPlugin({
+            filename: 'index.html',
             template: './app/pages/index.html',
-            inject: 'body'
+            inject: 'body',
+            chunks: ['commons', 'app']
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'about.html',
+            template: './app/pages/about.html',
+            inject: 'body',
+            chunks: ['commons', 'about']
         }),
         new ExtractTextPlugin('[name]_[hash].css'),
         //new ngAnnotatePlugin({
