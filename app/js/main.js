@@ -23,6 +23,9 @@ import ActivityCtrl from './controllers/ActivityCtrl';
 import FeedCtrl from './controllers/FeedCtrl';
 import DatepickerCtrl from './controllers/DatepickerCtrl';
 
+import activityTpl from './tpls/activity.html';
+import feedTpl from './tpls/feed.html';
+
 let app = angular.module('app', ['ui.router','ngResource', 'ui.bootstrap']);
 
 app.filter('applyStatus', ApplyStatus);
@@ -33,18 +36,17 @@ app.controller('ActivityCtrl', ActivityCtrl);
 app.controller('FeedCtrl', FeedCtrl);
 app.controller('DatepickerCtrl', DatepickerCtrl);
 
-
 app.config(($locationProvider, $stateProvider) => {
     $locationProvider.html5Mode(false);
     $locationProvider.hashPrefix("!");
 
     $stateProvider.state('activity', {
         url: 'activity',
-        template: require('./tpls/activity.html'),
+        template: activityTpl,
         controller: 'ActivityCtrl'
     }).state('feed', {
         url: 'feed',
-        template: require('./tpls/feed.html'),
+        template: feedTpl,
         controller: 'FeedCtrl'
     });
 

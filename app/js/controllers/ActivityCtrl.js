@@ -2,6 +2,8 @@
  * Created by yang on 2016/3/24.
  */
 
+import datepickerTpl from '../tpls/datepicker.html';
+
 export default class ActivityCtrl {
 
     constructor($scope, $filter, $resource, $uibModal, $log) {
@@ -20,7 +22,7 @@ export default class ActivityCtrl {
 
         this.$scope.openDatepicker = (activity) => {
             $uibModal.open({
-                template: require('../tpls/datepicker.html'),
+                template: datepickerTpl,
                 animation: true,
                 keyboard: true,
                 backdrop: true,
