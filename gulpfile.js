@@ -34,7 +34,7 @@ gulp.task('dev', () => {
         hot: true,
         lazy: false,
         proxy: {
-            '*': 'http://121.42.140.134'
+            '*': 'http://192.168.0.21'
         }
     });
     server.listen('81', 'localhost', (err) => {

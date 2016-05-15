@@ -11,10 +11,10 @@ export default class ActivityCtrl {
 
         this.$scope = $scope;
 
-        this.Activity = $resource('/site/activity', undefined, {
+        this.Activity = $resource('/apps/activity', undefined, {
             save: {method: 'PUT'}
         });
-        this.ActivityList = $resource('/site/activity/list');
+        this.ActivityList = $resource('/apps/activity/list');
 
         this.$scope.list = [];
 

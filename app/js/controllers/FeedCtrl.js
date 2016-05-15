@@ -9,10 +9,10 @@ export default class FeedCtrl {
 
         this.$scope = $scope;
 
-        this.Feed = $resource('/site/feed', undefined, {
+        this.Feed = $resource('/apps/feed', undefined, {
             save: {method: 'PUT'}
         });
-        this.FeedList = $resource('/site/feed/list');
+        this.FeedList = $resource('/apps/feed/list');
 
         this.$scope.list = [];
 
