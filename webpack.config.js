@@ -13,7 +13,7 @@ module.exports = {
     },
     output: {
         path: './build',
-        filename: '[name]_[chunkhash].js'
+        filename: 'js/[name]_[chunkhash:8].js'
     },
     //resolve: {
     //    extensions: ['', '.js', '.jsx']
@@ -50,8 +50,12 @@ module.exports = {
                 loader: ExtractTextPlugin.extract('style', 'css')
             },
             {
-                test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)/,
-                loader: 'file'
+                test: /\.(png|jpg|jpeg|gif)/,
+                loader: 'file?name=img/[name]_[hash:8].[ext]'
+            },
+            {
+                test: /\.(svg|woff|woff2|ttf|eot)/,
+                loader: 'file?name=font/[name]_[hash:8].[ext]'
             },
             {
                 test: /\.html$/,
@@ -78,7 +82,7 @@ module.exports = {
             inject: 'body',
             chunks: ['commons', 'about']
         }),
-        new ExtractTextPlugin('[name]_[hash].css'),
+        new ExtractTextPlugin('style/[name]_[hash:8].css'),
         //new ngAnnotatePlugin({
         //    add: true
         //}),
