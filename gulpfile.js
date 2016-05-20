@@ -24,7 +24,7 @@ gulp.task('webpack', () => {
 });
 
 gulp.task('dev', () => {
-    var config = require('./webpack.config.dev.js');
+    let config = require('./webpack.config.dev.js');
     let server = new WebpackDevServer(webpack(config), {
         //contentBase: 'http://localhost/',
         //contentBase: './build/',
