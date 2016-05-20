@@ -6,11 +6,18 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    entry: [
-        'webpack/hot/dev-server',
-        'webpack-dev-server/client?http://localhost:81',
-        './app/js/main.js'
-    ],
+    entry: {
+        app: [
+            'webpack/hot/dev-server',
+            'webpack-dev-server/client?http://localhost',
+            './app/js/main.js'
+        ],
+        about: [
+            'webpack/hot/dev-server',
+            'webpack-dev-server/client?http://localhost',
+            './app/js/about.js'
+        ]
+    },
     output: {
         path: __dirname + '/build',
         //publicPath: 'http://localhost:81/',
@@ -53,11 +60,22 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'commons',
+            //chunks: ['index', 'about'],
+            minChunks: 2
+        }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './app/pages/index.html',
             inject: 'body',
-            //chunks: ['commons', 'app']
+            chunks: ['commons', 'app']
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'about.html',
+            template: './app/pages/about.html',
+            inject: 'body',
+            chunks: ['commons', 'about']
         }),
         new ExtractTextPlugin('[name]_[hash].css'),
         new webpack.HotModuleReplacementPlugin()

@@ -26,10 +26,10 @@ gulp.task('webpack', () => {
 gulp.task('dev', () => {
     var config = require('./webpack.config.dev.js');
     let server = new WebpackDevServer(webpack(config), {
-        //contentBase: 'http://localhost:81/',
+        //contentBase: 'http://localhost/',
         //contentBase: './build/',
         //publicPath: './build/',
-        //publicPath: 'http://localhost:81/',
+        //publicPath: 'http://localhost/',
         //historyApiFallback: true,
         hot: true,
         lazy: false,
@@ -37,7 +37,7 @@ gulp.task('dev', () => {
             '*': 'http://192.168.0.21'
         }
     });
-    server.listen('81', 'localhost', (err) => {
+    server.listen('80', 'localhost', (err) => {
         if (err) {
             console.error('dev:', err);
             return;
