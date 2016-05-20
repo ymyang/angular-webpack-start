@@ -20,7 +20,7 @@ module.exports = {
     },
     output: {
         path: __dirname + '/build',
-        //publicPath: 'http://localhost:81/',
+        //publicPath: 'http://localhost/',
         filename: '[name].js'
     },
     module: {
@@ -67,13 +67,13 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: './app/pages/index.html',
+            template: 'app/pages/index.html',
             inject: 'body',
             chunks: ['commons', 'app']
         }),
         new HtmlWebpackPlugin({
             filename: 'about.html',
-            template: './app/pages/about.html',
+            template: 'app/pages/about.html',
             inject: 'body',
             chunks: ['commons', 'about']
         }),

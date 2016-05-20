@@ -72,17 +72,17 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: './app/pages/index.html',
+            template: 'app/pages/index.html',
             inject: 'body',
             chunks: ['commons', 'app']
         }),
         new HtmlWebpackPlugin({
             filename: 'about.html',
-            template: './app/pages/about.html',
+            template: 'app/pages/about.html',
             inject: 'body',
             chunks: ['commons', 'about']
         }),
-        new ExtractTextPlugin('style/[name]_[hash:8].css'),
+        new ExtractTextPlugin('[name]_[hash:8].css'),
         //new ngAnnotatePlugin({
         //    add: true
         //}),
