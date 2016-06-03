@@ -29,10 +29,10 @@ module.exports = {
         loaders: [
             {
                 test: /\.js$/,
-                loader: 'ng-annotate!babel?presets[]=es2015',
-                //query: {
-                //    presets: ['es2015']
-                //},
+                loader: 'babel',
+                query: {
+                    presets: ['es2015']
+                },
                 exclude: /node_modules/
             },
             //{

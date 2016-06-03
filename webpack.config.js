@@ -6,7 +6,6 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -25,16 +24,8 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'ng-annotate!babel?presets[]=es2015',
-                //query: {
-                //    presets: ['es2015']
-                //},
                 exclude: /node_modules/
             },
-            //{
-            //    test: /\.js$/,
-            //    loader: 'ng-annotate',
-            //    exclude: /node_modules/
-            //},
             //{
             //    test: /\.less/,
             //    loader: 'style!css!less'
@@ -85,9 +76,6 @@ module.exports = {
             chunks: ['commons', 'about']
         }),
         new ExtractTextPlugin('[name]_[hash:8].css'),
-        //new ngAnnotatePlugin({
-        //    add: true
-        //}),
         new webpack.optimize.UglifyJsPlugin()
         //new webpack.optimize.UglifyJsPlugin({
         //    mangle: {

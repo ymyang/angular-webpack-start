@@ -41,9 +41,9 @@
     "less": "^2.6.1",
     "less-loader": "^2.2.3",
     "ng-annotate-loader": "^0.1.0",
-    "ng-annotate-webpack-plugin": "^0.1.2",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
     "webpack": "^1.13.0",
     "webpack-dev-server": "^1.14.1"
   }
